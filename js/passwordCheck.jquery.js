@@ -8,7 +8,7 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     this.minLength = 8; //this is what we defined and what we need to consider in our length check
 
     //this attributes are set with our constructor
-    this.wrapperField = $(wrapperId);
+    this.wrapperField = $(wrapperId);           /* kein document.getElementById(...), sondern mit $ */
     this.passwordField = $(passwordInputFieldId);
     this.passwordSubmitButton = $(passwordSubmitButtonId);
 
@@ -21,22 +21,22 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     //if we are in the password field an enter text - JavaScript Method "onkeyup" or "onkeup" - again in our case the field this.passwordField
     //if we try to click the submit button - JavaScript Method "onclick" - in our case this.passwordSubmitButton
 
-    this.passwordField.blur(function() {
+    this.passwordField.blur(function() {    /* blur statt onblur */
         //the keyword "this" is always referring to its context.
         //onblur is an event which happens in "passwordField" -> so the keyword "this" would refer to the passwordField NOT to our class
         //therefore we previously saved "this" in a variable called "that"
         that.check();
     });
 
-    this.passwordField.keydown(function() {
+    this.passwordField.keydown(function() { /* keydown statt onkeyup */
         that.check();
     });
 
-    this.passwordField.focus(function() {
+    this.passwordField.focus(function() {   /*focus statt onfocus */
         that.check();
     });
 
-    this.passwordSubmitButton.click(function() {
+    this.passwordSubmitButton.click(function() {    /* click statt onclick*/
         that.check();
     });
 
@@ -61,6 +61,7 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
                 this.passwordSubmitButton.attr('disabled', true);
             }
 
+            /* die Anweisungen in den if-Schleifen sind anders. Hier wird mit .remoceClass und .addClass gearbeitet statt mit Zuweiseungen */
 
         } else {
             //obviously a field is null (we weren't able to find it)
@@ -74,10 +75,24 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     /*
     This method should return true if the length of passwordField value is greater or equal to this.minLength
      */
+
+    var password = this.passwordField.value;
+    var length = this.minLength;
+    var number = /([0-9])/;
+    var alphabets = /([a-zA-Z])/;
+    var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+
     this.checkForLength = function() {
         //@todo
         //have a look at javascript string methods and properties
-        return true; //this needs to be replaced!
+
+    if(password >= length){
+
+        return true;
+    }
+    else {
+        return false;
+    }
     };
 
     /*
@@ -87,7 +102,15 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //@todo
         //have a look at javascript string methods and properties
         //you could probably "match" it somehow
-        return true; //this needs to be replaced!
+
+        if(password .val().match(number) && password.val().match(alphabets) && password.val().match(special_characters)){
+
+            return true;
+        }
+        else {
+            return false;
+        }
+
     };
     //TODO 2 end
 }
