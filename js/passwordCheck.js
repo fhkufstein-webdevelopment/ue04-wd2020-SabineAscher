@@ -26,6 +26,9 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //the keyword "this" is always referring to its context.
         //onblur is an event which happens in "passwordField" -> so the keyword "this" would refer to the passwordField NOT to our class
         //therefore we previously saved "this" in a variable called "that"
+        console.log(this);
+        console.log(that);
+
         that.check();
     };
 
@@ -81,14 +84,12 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     This method should return true if the length of passwordField value is greater or equal to this.minLength
      */
 
-    var password = this.passwortField.value;
-    var length = this.minLength;
 
     this.checkForLength = function() {
         //@todo
         //have a look at javascript string methods and properties
 
-        if(password >= length){
+        if(this.passwordField.value.length >= this.minLength){
             return true;
         }
         else {
@@ -104,7 +105,7 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //have a look at javascript string methods and properties
         //you could probably "match" it somehow
 
-        if(password.match(/\d{1,}/) && password.match(/[a-zA-ZäöüÄÖÜ]{1,}/) && password.match(/\W/)){
+        if(this.passwordField.value.match(/\d{1,}/) && this.passwordField.value.match(/[a-zA-ZäöüÄÖÜ]{1,}/) && this.passwordField.value.match(/\W/)){
             return true;
         }
         else{
