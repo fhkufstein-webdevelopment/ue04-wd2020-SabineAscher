@@ -26,8 +26,8 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //the keyword "this" is always referring to its context.
         //onblur is an event which happens in "passwordField" -> so the keyword "this" would refer to the passwordField NOT to our class
         //therefore we previously saved "this" in a variable called "that"
-        console.log(this);
-        console.log(that);
+        //console.log(this);
+        //console.log(that);
 
         that.check();
     };
@@ -105,12 +105,8 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //have a look at javascript string methods and properties
         //you could probably "match" it somehow
 
-        if(this.passwordField.value.match(/\d{1,}/) && this.passwordField.value.match(/[a-zA-ZäöüÄÖÜ]{1,}/) && this.passwordField.value.match(/\W/)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        regex = /[!§$_.:,;]/g;
+        return this.passwordField.value.match(regex);
 
     };
 }
